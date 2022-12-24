@@ -53,6 +53,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "bin": [
-        "icon-maker"
+        "builds/icon-maker"
     ]
 }
