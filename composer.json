@@ -2,7 +2,6 @@
     "name": "gurindersingh/icon-maker",
     "description": "Icon maker for Laravel webapp",
     "keywords": [
-        "framework",
         "laravel",
         "laravel zero",
         "console",
@@ -11,7 +10,6 @@
         "Icons"
     ],
     "homepage": "https://github.com/gurindersingh/icon-maker",
-    "type": "project",
     "license": "MIT",
     "support": {
         "issues": "https://github.com/gurindersingh/icon-maker/issues",
