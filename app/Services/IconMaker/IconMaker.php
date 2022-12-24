@@ -200,29 +200,24 @@ class IconMaker
     {
         $this->command->comment('--- Creating Manifest');
         $manifestIcons = "<?php \n\nreturn [\n";
-        //$manifestIcons = "<!-------\n";
         $manifestIcons .= "'theme-color' => '{$this->manifestConfig['theme_color']}',\n";
 
-        foreach (['logo-vector', 'logo-sm-vector', 'apple-tab-icon'] as $name) {
-            $logoName = "{$name}-{$this->hash}.svg";  //$this->randomName('svg');
+        $allFiles = [
+            'svg' => ['logo-vector', 'logo-sm-vector', 'apple-tab-icon'],
+            'png' => ['logo', 'logo-sm'],
+        ];
 
-            copy(
-                Path::currentDirectory($this->sourceDir . '/' . explode('|', $this->regularFiles[$name])[0]),
-                $path = $this->destinationDir . '/' . $logoName
-            );
-            $this->iconPaths[$name] = $this->removePublicPath($path);
-            $manifestIcons .= "'{$name}' => '{$this->iconPaths[$name]}',\n";
-        }
+        foreach ($allFiles as $type => $files) {
+            foreach ($files as $name) {
+                $logoName = "{$name}-{$this->hash}.{$type}";
 
-        foreach (['logo', 'logo-sm'] as $name) {
-            $logoName = "{$name}-{$this->hash}.png";  //$this->randomName('svg');
-
-            copy(
-                Path::currentDirectory($this->sourceDir . '/' . explode('|', $this->regularFiles[$name])[0]),
-                $path = $this->destinationDir . '/' . $logoName
-            );
-            $this->iconPaths[$name] = $this->removePublicPath($path);
-            $manifestIcons .= "'{$name}' => '{$this->iconPaths[$name]}',\n";
+                copy(
+                    Path::currentDirectory($this->sourceDir . '/' . explode('|', $this->regularFiles[$name])[0]),
+                    $path = $this->destinationDir . '/' . $logoName
+                );
+                $this->iconPaths[$name] = $this->removePublicPath($path);
+                $manifestIcons .= "'{$name}' => '{$this->iconPaths[$name]}',\n";
+            }
         }
 
         $this->html[] = "<link rel=\"mask-icon\" sizes=\"any\" href=\"{{ asset('{$this->iconPaths['apple-tab-icon']}') }}\" color=\"{{ config('app.theme.theme-color') }}\">";
