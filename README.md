@@ -20,6 +20,7 @@ In project root run following commands to create icons
 ```shell
 icon-maker make:icon # to create icons
 icon-maker make:icon --splash # to create icons with splash
+icon-maker make:icon --splash --optimize # to create icons with splash
 ```
 It will create following content or files
 - icons in `public/assets/icons`
