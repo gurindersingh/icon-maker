@@ -6,12 +6,10 @@ use App\Services\IconMaker\Icons\ExportArtifacts;
 use App\Services\IconMaker\Icons\Favicon;
 use App\Services\IconMaker\Icons\Icon;
 use App\Services\IconMaker\Icons\Splash;
-use App\Services\Support\FetchIosDeviceScreenSizes;
 use App\Services\Support\Path;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
-use Intervention\Image\ImageManager;
 use LaravelZero\Framework\Commands\Command;
 use function Termwind\{render, terminal};
 
@@ -91,12 +89,16 @@ class IconMaker
             ExportArtifacts::class,
         ];
 
+        terminal()->clear();
+
+        render('<p class="bg-white text-gray-700 px-2 py-0.5">Creating icons</p>');
+
         $pipeline
             ->via('handle')
             ->send($this)
             ->through($pipes)
             ->then(function (IconMaker $maker) {
-                echo 'done';
+                render('<p class="bg-green-700 text-white px-2 py-0.5">Finished</p>');
             });
     }
 

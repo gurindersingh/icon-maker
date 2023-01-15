@@ -27,7 +27,6 @@ class Favicon extends BaseIconMaker implements IconMakerContract
 
     private function savePng()
     {
-        //$pngName = "favicon-{$this->maker->hash}.png";
         $pngName = "favicon.png";
 
         $pngName = "{$this->maker->destinationDir}/{$pngName}";
@@ -41,7 +40,6 @@ class Favicon extends BaseIconMaker implements IconMakerContract
 
     protected function saveIco()
     {
-        //$icoName = "favicon-{$this->maker->hash}.ico";
         $icoName = "favicon.ico";
 
         $icoName = "{$this->maker->destinationDir}/{$icoName}";

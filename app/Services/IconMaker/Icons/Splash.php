@@ -4,6 +4,7 @@ namespace App\Services\IconMaker\Icons;
 
 use App\Services\Support\FetchIosDeviceScreenSizes;
 use LaravelZero\Framework\Commands\Command;
+use function Termwind\{render, terminal};
 
 class Splash extends BaseIconMaker implements IconMakerContract
 {
@@ -12,11 +13,14 @@ class Splash extends BaseIconMaker implements IconMakerContract
     {
         if (!static::enabled($this->command)) return;
 
-        $this->command->task('Process splash screens', function () {
+        $this->makeSplashScreens();
 
-            $this->makeSplashScreens();
 
-        }, 'Processing...');
+//        $this->command->task('Process splash screens', function () {
+//
+//            $this->makeSplashScreens();
+//
+//        }, 'Processing...');
     }
 
     public static function enabled(Command $command): bool
@@ -30,26 +34,29 @@ class Splash extends BaseIconMaker implements IconMakerContract
 
         $this->image->backup();
 
-        $sizes = collect(FetchIosDeviceScreenSizes::make()->getSizes())->chunk(1)->first()->toArray();
+        $sizes = FetchIosDeviceScreenSizes::make()->getSizes();
 
-        //$sizes = FetchIosDeviceScreenSizes::make()->getSizes();
+        $sizes = collect(FetchIosDeviceScreenSizes::make()->getSizes())->chunk(1)->first()->toArray();
 
         foreach ($sizes as $size) {
             $w = $size['width'] * $size['res'];
+
             $h = $size['height'] * $size['res'];
 
-            //$name = "splash-{$w}-{$h}-{$size['type']}-{$this->maker->hash}.{$this->image->extension}";
             $name = "splash-{$w}-{$h}-{$size['type']}.{$this->image->extension}";
 
-            $this->image->fit($w, $h)->save($path = "{$this->maker->destinationDir}/{$name}");
+            $this->command->task("Creating splash screen: {$name}", function () use ($size, $w, $h, $name) {
 
-            $this->image->reset();
+                $this->image->fit($w, $h)->save($path = "{$this->maker->destinationDir}/{$name}");
 
-            $path = str($path)->after('public/')->toString();
+                $this->image->reset();
 
-            $this->maker->html[] = "<link rel=\"apple-touch-startup-image\" media=\"screen and (device-width: {$size['width']}) and (device-height: {$size['height']}) and (-webkit-device-pixel-ratio: {$size['res']}) and (orientation: {$size['type']})\" href=\"{{ asset('{$path}') }}\" />";
+                $path = str($path)->after('public/')->toString();
 
-            $this->maker->iconsConfig["splash-{$w}-{$h}-{$size['type']}"] = $path;
+                $this->maker->html[] = "<link rel=\"apple-touch-startup-image\" media=\"screen and (device-width: {$size['width']}) and (device-height: {$size['height']}) and (-webkit-device-pixel-ratio: {$size['res']}) and (orientation: {$size['type']})\" href=\"{{ asset('{$path}') }}\" />";
+
+                $this->maker->iconsConfig["splash-{$w}-{$h}-{$size['type']}"] = $path;
+            }, 'processing..');
         }
 
         $this->image->destroy();

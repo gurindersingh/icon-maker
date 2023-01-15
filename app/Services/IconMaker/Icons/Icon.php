@@ -68,10 +68,13 @@ class Icon extends BaseIconMaker implements IconMakerContract
     protected function saveForRequiredMaskableDimensions()
     {
         foreach ($this->maskableIconDimensions as $dim) {
-            //$name = "maskable-icon-{$dim}-{$this->maker->hash}.png";
+
             $name = "maskable-icon-{$dim}.png";
+
             $this->image->fit($dim, $dim)->save($path = "{$this->maker->destinationDir}/{$name}", 100);
+
             $this->image->reset();
+
             $path = str($path)->after('public/')->toString();
 
             $this->maker->iconPaths['icon-' . $dim] = $path;

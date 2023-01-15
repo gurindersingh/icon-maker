@@ -39,7 +39,6 @@ class ExportArtifacts extends BaseIconMaker implements IconMakerContract
 
         foreach ($allFiles as $type => $files) {
             foreach ($files as $name) {
-                //$logoName = "{$name}-{$this->maker->hash}.{$type}";
                 $logoName = "{$name}.{$type}";
 
                 copy(
