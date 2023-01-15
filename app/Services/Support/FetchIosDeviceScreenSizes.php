@@ -33,7 +33,6 @@ class FetchIosDeviceScreenSizes
     protected function fetchNewSizes(): void
     {
         $html = $this->client()->request('GET', 'https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/adaptivity-and-layout/#device-screen-sizes-and-orientations')->html();
-        //$html = File::get(__DIR__ . '/index.html');
 
         $crawler = (new Crawler($html));
 
@@ -79,9 +78,11 @@ class FetchIosDeviceScreenSizes
 
     protected function sizesLocation(): string
     {
-        File::ensureDirectoryExists(Path::homeDir('.icon-maker/data'));
+        return app_path('Support/ios-screen-sizes.json');
 
-        return Path::homeDir('.icon-maker/data/ios-screen-sizes.json');
+        //File::ensureDirectoryExists(Path::homeDir('.icon-maker/data'));
+
+        //return Path::homeDir('.icon-maker/data/ios-screen-sizes.json');
     }
 
     protected function ensureDirExist(): void
@@ -110,9 +111,11 @@ class FetchIosDeviceScreenSizes
 
     protected function needRefresh(): bool
     {
-        if ($timestamp = Arr::get($this->sizes, 'timestamp')) {
-            return now()->diffInMonths(Carbon::createFromTimestamp($timestamp)) > 2;
-        }
-        return true;
+        return false;
+
+        //        if ($timestamp = Arr::get($this->sizes, 'timestamp')) {
+        //            return now()->diffInMonths(Carbon::createFromTimestamp($timestamp)) > 2;
+        //        }
+        //        return true;
     }
 }

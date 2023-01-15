@@ -1,0 +1,551 @@
+{
+    "timestamp": 1673735224,
+    "sizes": {
+        "12-9-ipad-pro-portrait": {
+            "name": "12-9-ipad-pro",
+            "type": "portrait",
+            "width": 2048,
+            "height": 2732,
+            "res": 2
+        },
+        "12-9-ipad-pro-landscape": {
+            "name": "12-9-ipad-pro",
+            "type": "landscape",
+            "width": 2732,
+            "height": 2048,
+            "res": 2
+        },
+        "11-ipad-pro-portrait": {
+            "name": "11-ipad-pro",
+            "type": "portrait",
+            "width": 1668,
+            "height": 2388,
+            "res": 2
+        },
+        "11-ipad-pro-landscape": {
+            "name": "11-ipad-pro",
+            "type": "landscape",
+            "width": 2388,
+            "height": 1668,
+            "res": 2
+        },
+        "10-5-ipad-pro-portrait": {
+            "name": "10-5-ipad-pro",
+            "type": "portrait",
+            "width": 1668,
+            "height": 2388,
+            "res": 2
+        },
+        "10-5-ipad-pro-landscape": {
+            "name": "10-5-ipad-pro",
+            "type": "landscape",
+            "width": 2388,
+            "height": 1668,
+            "res": 2
+        },
+        "9-7-ipad-pro-portrait": {
+            "name": "9-7-ipad-pro",
+            "type": "portrait",
+            "width": 1536,
+            "height": 2048,
+            "res": 2
+        },
+        "9-7-ipad-pro-landscape": {
+            "name": "9-7-ipad-pro",
+            "type": "landscape",
+            "width": 2048,
+            "height": 1536,
+            "res": 2
+        },
+        "7-9-ipad-mini-portrait": {
+            "name": "7-9-ipad-mini",
+            "type": "portrait",
+            "width": 1536,
+            "height": 2048,
+            "res": 2
+        },
+        "7-9-ipad-mini-landscape": {
+            "name": "7-9-ipad-mini",
+            "type": "landscape",
+            "width": 2048,
+            "height": 1536,
+            "res": 2
+        },
+        "10-5-ipad-air-portrait": {
+            "name": "10-5-ipad-air",
+            "type": "portrait",
+            "width": 1668,
+            "height": 2224,
+            "res": 2
+        },
+        "10-5-ipad-air-landscape": {
+            "name": "10-5-ipad-air",
+            "type": "landscape",
+            "width": 2224,
+            "height": 1668,
+            "res": 2
+        },
+        "9-7-ipad-air-portrait": {
+            "name": "9-7-ipad-air",
+            "type": "portrait",
+            "width": 1536,
+            "height": 2048,
+            "res": 2
+        },
+        "9-7-ipad-air-landscape": {
+            "name": "9-7-ipad-air",
+            "type": "landscape",
+            "width": 2048,
+            "height": 1536,
+            "res": 2
+        },
+        "10-2-ipad-portrait": {
+            "name": "10-2-ipad",
+            "type": "portrait",
+            "width": 1620,
+            "height": 2160,
+            "res": 2
+        },
+        "10-2-ipad-landscape": {
+            "name": "10-2-ipad",
+            "type": "landscape",
+            "width": 2160,
+            "height": 1620,
+            "res": 2
+        },
+        "9-7-ipad-portrait": {
+            "name": "9-7-ipad",
+            "type": "portrait",
+            "width": 1536,
+            "height": 2048,
+            "res": 2
+        },
+        "9-7-ipad-landscape": {
+            "name": "9-7-ipad",
+            "type": "landscape",
+            "width": 2048,
+            "height": 1536,
+            "res": 2
+        },
+        "iphone-14-pro-max-portrait": {
+            "name": "iphone-14-pro-max",
+            "type": "portrait",
+            "width": 1290,
+            "height": 2796,
+            "res": 3
+        },
+        "iphone-14-pro-max-landscape": {
+            "name": "iphone-14-pro-max",
+            "type": "landscape",
+            "width": 2796,
+            "height": 1290,
+            "res": 3
+        },
+        "iphone-14-pro-portrait": {
+            "name": "iphone-14-pro",
+            "type": "portrait",
+            "width": 1179,
+            "height": 2556,
+            "res": 3
+        },
+        "iphone-14-pro-landscape": {
+            "name": "iphone-14-pro",
+            "type": "landscape",
+            "width": 2556,
+            "height": 1179,
+            "res": 3
+        },
+        "iphone-14-plus-portrait": {
+            "name": "iphone-14-plus",
+            "type": "portrait",
+            "width": 1284,
+            "height": 2778,
+            "res": 3
+        },
+        "iphone-14-plus-landscape": {
+            "name": "iphone-14-plus",
+            "type": "landscape",
+            "width": 2778,
+            "height": 1284,
+            "res": 3
+        },
+        "iphone-14-portrait": {
+            "name": "iphone-14",
+            "type": "portrait",
+            "width": 1170,
+            "height": 2532,
+            "res": 3
+        },
+        "iphone-14-landscape": {
+            "name": "iphone-14",
+            "type": "landscape",
+            "width": 2532,
+            "height": 1170,
+            "res": 3
+        },
+        "iphone-13-pro-max-portrait": {
+            "name": "iphone-13-pro-max",
+            "type": "portrait",
+            "width": 1284,
+            "height": 2778,
+            "res": 3
+        },
+        "iphone-13-pro-max-landscape": {
+            "name": "iphone-13-pro-max",
+            "type": "landscape",
+            "width": 2778,
+            "height": 1284,
+            "res": 3
+        },
+        "iphone-13-pro-portrait": {
+            "name": "iphone-13-pro",
+            "type": "portrait",
+            "width": 1170,
+            "height": 2532,
+            "res": 3
+        },
+        "iphone-13-pro-landscape": {
+            "name": "iphone-13-pro",
+            "type": "landscape",
+            "width": 2532,
+            "height": 1170,
+            "res": 3
+        },
+        "iphone-13-portrait": {
+            "name": "iphone-13",
+            "type": "portrait",
+            "width": 1170,
+            "height": 2532,
+            "res": 3
+        },
+        "iphone-13-landscape": {
+            "name": "iphone-13",
+            "type": "landscape",
+            "width": 2532,
+            "height": 1170,
+            "res": 3
+        },
+        "iphone-13-mini-portrait": {
+            "name": "iphone-13-mini",
+            "type": "portrait",
+            "width": 1125,
+            "height": 2436,
+            "res": 3
+        },
+        "iphone-13-mini-landscape": {
+            "name": "iphone-13-mini",
+            "type": "landscape",
+            "width": 2436,
+            "height": 1125,
+            "res": 3
+        },
+        "iphone-12-pro-max-portrait": {
+            "name": "iphone-12-pro-max",
+            "type": "portrait",
+            "width": 1284,
+            "height": 2778,
+            "res": 3
+        },
+        "iphone-12-pro-max-landscape": {
+            "name": "iphone-12-pro-max",
+            "type": "landscape",
+            "width": 2778,
+            "height": 1284,
+            "res": 3
+        },
+        "iphone-12-pro-portrait": {
+            "name": "iphone-12-pro",
+            "type": "portrait",
+            "width": 1170,
+            "height": 2532,
+            "res": 3
+        },
+        "iphone-12-pro-landscape": {
+            "name": "iphone-12-pro",
+            "type": "landscape",
+            "width": 2532,
+            "height": 1170,
+            "res": 3
+        },
+        "iphone-12-portrait": {
+            "name": "iphone-12",
+            "type": "portrait",
+            "width": 1170,
+            "height": 2532,
+            "res": 3
+        },
+        "iphone-12-landscape": {
+            "name": "iphone-12",
+            "type": "landscape",
+            "width": 2532,
+            "height": 1170,
+            "res": 3
+        },
+        "iphone-12-mini-portrait": {
+            "name": "iphone-12-mini",
+            "type": "portrait",
+            "width": 1125,
+            "height": 2436,
+            "res": 3
+        },
+        "iphone-12-mini-landscape": {
+            "name": "iphone-12-mini",
+            "type": "landscape",
+            "width": 2436,
+            "height": 1125,
+            "res": 3
+        },
+        "iphone-11-pro-max-portrait": {
+            "name": "iphone-11-pro-max",
+            "type": "portrait",
+            "width": 1242,
+            "height": 2688,
+            "res": 3
+        },
+        "iphone-11-pro-max-landscape": {
+            "name": "iphone-11-pro-max",
+            "type": "landscape",
+            "width": 2688,
+            "height": 1242,
+            "res": 3
+        },
+        "iphone-11-pro-portrait": {
+            "name": "iphone-11-pro",
+            "type": "portrait",
+            "width": 1125,
+            "height": 2436,
+            "res": 3
+        },
+        "iphone-11-pro-landscape": {
+            "name": "iphone-11-pro",
+            "type": "landscape",
+            "width": 2436,
+            "height": 1125,
+            "res": 3
+        },
+        "iphone-11-portrait": {
+            "name": "iphone-11",
+            "type": "portrait",
+            "width": 828,
+            "height": 1792,
+            "res": 2
+        },
+        "iphone-11-landscape": {
+            "name": "iphone-11",
+            "type": "landscape",
+            "width": 1792,
+            "height": 828,
+            "res": 2
+        },
+        "iphone-xs-max-portrait": {
+            "name": "iphone-xs-max",
+            "type": "portrait",
+            "width": 1242,
+            "height": 2688,
+            "res": 3
+        },
+        "iphone-xs-max-landscape": {
+            "name": "iphone-xs-max",
+            "type": "landscape",
+            "width": 2688,
+            "height": 1242,
+            "res": 3
+        },
+        "iphone-xs-portrait": {
+            "name": "iphone-xs",
+            "type": "portrait",
+            "width": 1125,
+            "height": 2436,
+            "res": 3
+        },
+        "iphone-xs-landscape": {
+            "name": "iphone-xs",
+            "type": "landscape",
+            "width": 2436,
+            "height": 1125,
+            "res": 3
+        },
+        "iphone-xr-portrait": {
+            "name": "iphone-xr",
+            "type": "portrait",
+            "width": 828,
+            "height": 1792,
+            "res": 2
+        },
+        "iphone-xr-landscape": {
+            "name": "iphone-xr",
+            "type": "landscape",
+            "width": 1792,
+            "height": 828,
+            "res": 2
+        },
+        "iphone-x-portrait": {
+            "name": "iphone-x",
+            "type": "portrait",
+            "width": 1125,
+            "height": 2436,
+            "res": 3
+        },
+        "iphone-x-landscape": {
+            "name": "iphone-x",
+            "type": "landscape",
+            "width": 2436,
+            "height": 1125,
+            "res": 3
+        },
+        "iphone-8-plus-portrait": {
+            "name": "iphone-8-plus",
+            "type": "portrait",
+            "width": 1080,
+            "height": 1920,
+            "res": 3
+        },
+        "iphone-8-plus-landscape": {
+            "name": "iphone-8-plus",
+            "type": "landscape",
+            "width": 1920,
+            "height": 1080,
+            "res": 3
+        },
+        "iphone-8-portrait": {
+            "name": "iphone-8",
+            "type": "portrait",
+            "width": 750,
+            "height": 1334,
+            "res": 2
+        },
+        "iphone-8-landscape": {
+            "name": "iphone-8",
+            "type": "landscape",
+            "width": 1334,
+            "height": 750,
+            "res": 2
+        },
+        "iphone-7-plus-portrait": {
+            "name": "iphone-7-plus",
+            "type": "portrait",
+            "width": 1080,
+            "height": 1920,
+            "res": 3
+        },
+        "iphone-7-plus-landscape": {
+            "name": "iphone-7-plus",
+            "type": "landscape",
+            "width": 1920,
+            "height": 1080,
+            "res": 3
+        },
+        "iphone-7-portrait": {
+            "name": "iphone-7",
+            "type": "portrait",
+            "width": 750,
+            "height": 1334,
+            "res": 2
+        },
+        "iphone-7-landscape": {
+            "name": "iphone-7",
+            "type": "landscape",
+            "width": 1334,
+            "height": 750,
+            "res": 2
+        },
+        "iphone-6s-plus-portrait": {
+            "name": "iphone-6s-plus",
+            "type": "portrait",
+            "width": 1080,
+            "height": 1920,
+            "res": 3
+        },
+        "iphone-6s-plus-landscape": {
+            "name": "iphone-6s-plus",
+            "type": "landscape",
+            "width": 1920,
+            "height": 1080,
+            "res": 3
+        },
+        "iphone-6s-portrait": {
+            "name": "iphone-6s",
+            "type": "portrait",
+            "width": 750,
+            "height": 1334,
+            "res": 2
+        },
+        "iphone-6s-landscape": {
+            "name": "iphone-6s",
+            "type": "landscape",
+            "width": 1334,
+            "height": 750,
+            "res": 2
+        },
+        "iphone-6-plus-portrait": {
+            "name": "iphone-6-plus",
+            "type": "portrait",
+            "width": 1080,
+            "height": 1920,
+            "res": 3
+        },
+        "iphone-6-plus-landscape": {
+            "name": "iphone-6-plus",
+            "type": "landscape",
+            "width": 1920,
+            "height": 1080,
+            "res": 3
+        },
+        "iphone-6-portrait": {
+            "name": "iphone-6",
+            "type": "portrait",
+            "width": 750,
+            "height": 1334,
+            "res": 2
+        },
+        "iphone-6-landscape": {
+            "name": "iphone-6",
+            "type": "landscape",
+            "width": 1334,
+            "height": 750,
+            "res": 2
+        },
+        "4-7-iphone-se-portrait": {
+            "name": "4-7-iphone-se",
+            "type": "portrait",
+            "width": 750,
+            "height": 1334,
+            "res": 2
+        },
+        "4-7-iphone-se-landscape": {
+            "name": "4-7-iphone-se",
+            "type": "landscape",
+            "width": 1334,
+            "height": 750,
+            "res": 2
+        },
+        "4-iphone-se-portrait": {
+            "name": "4-iphone-se",
+            "type": "portrait",
+            "width": 640,
+            "height": 1136,
+            "res": 2
+        },
+        "4-iphone-se-landscape": {
+            "name": "4-iphone-se",
+            "type": "landscape",
+            "width": 1136,
+            "height": 640,
+            "res": 2
+        },
+        "ipod-touch-5th-generation-and-later-portrait": {
+            "name": "ipod-touch-5th-generation-and-later",
+            "type": "portrait",
+            "width": 640,
+            "height": 1136,
+            "res": 2
+        },
+        "ipod-touch-5th-generation-and-later-landscape": {
+            "name": "ipod-touch-5th-generation-and-later",
+            "type": "landscape",
+            "width": 1136,
+            "height": 640,
+            "res": 2
+        }
+    }
+}
