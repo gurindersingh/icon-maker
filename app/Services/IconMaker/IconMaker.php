@@ -5,6 +5,7 @@ namespace App\Services\IconMaker;
 use App\Services\IconMaker\Icons\ExportArtifacts;
 use App\Services\IconMaker\Icons\Favicon;
 use App\Services\IconMaker\Icons\Icon;
+use App\Services\IconMaker\Icons\OptimizeIcons;
 use App\Services\IconMaker\Icons\Splash;
 use App\Services\Support\Path;
 use Illuminate\Pipeline\Pipeline;
@@ -87,6 +88,7 @@ class IconMaker
             Icon::class,
             Splash::class,
             ExportArtifacts::class,
+            OptimizeIcons::class,
         ];
 
         terminal()->clear();

@@ -27,6 +27,7 @@
         "intervention/image": "^2.7",
         "laravel-zero/framework": "^9.2",
         "nunomaduro/termwind": "^1.15",
+        "spatie/image-optimizer": "^1.6",
         "symfony/dom-crawler": "^6.2"
     },
     "require-dev": {

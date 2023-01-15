@@ -15,12 +15,11 @@ class Splash extends BaseIconMaker implements IconMakerContract
 
         $this->makeSplashScreens();
 
-
-//        $this->command->task('Process splash screens', function () {
-//
-//            $this->makeSplashScreens();
-//
-//        }, 'Processing...');
+        //        $this->command->task('Process splash screens', function () {
+        //
+        //            $this->makeSplashScreens();
+        //
+        //        }, 'Processing...');
     }
 
     public static function enabled(Command $command): bool
@@ -36,7 +35,7 @@ class Splash extends BaseIconMaker implements IconMakerContract
 
         $sizes = FetchIosDeviceScreenSizes::make()->getSizes();
 
-        //        $sizes = collect(FetchIosDeviceScreenSizes::make()->getSizes())->chunk(1)->first()->toArray();
+        //$sizes = collect(FetchIosDeviceScreenSizes::make()->getSizes())->chunk(1)->first()->toArray();
 
         foreach ($sizes as $size) {
             $w = $size['width'] * $size['res'];
