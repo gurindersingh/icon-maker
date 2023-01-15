@@ -26,3 +26,16 @@ It will create following content or files
 - head.html at `public/assets/icons/head.html`
 - manifest.json at `public/manifest.json`
 - manifest.webmanifest at `public/manifest.webmanifest`
+
+## Config (Optional)
+Add `icon-maker.json` file in root of your project. All are optional.
+```json
+{
+    "configThemeLocation": "config/theme.php",
+    "webManifestLocation": "public/manifest.webmanifest",
+    "manifestJsonLocation": "public/manifest.json",
+    "headHtmlLocation": "resources/views/common/head.blade.php",
+    "headHtmlBladeLocation": "resources/views/common/head.blade.php",
+    "destinationDirectory": "public/assets/icons"
+}
+```
