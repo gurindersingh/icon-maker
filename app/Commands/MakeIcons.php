@@ -13,7 +13,7 @@ class MakeIcons extends Command
      *
      * @var string
      */
-    protected $signature = 'make:icon';
+    protected $signature = 'make:icon {--S|splash}';
 
     /**
      * The description of the command.

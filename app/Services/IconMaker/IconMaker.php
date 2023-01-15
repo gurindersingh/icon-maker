@@ -2,7 +2,14 @@
 
 namespace App\Services\IconMaker;
 
+use App\Services\IconMaker\Icons\ExportArtifacts;
+use App\Services\IconMaker\Icons\Favicon;
+use App\Services\IconMaker\Icons\Icon;
+use App\Services\IconMaker\Icons\Splash;
+use App\Services\Support\FetchIosDeviceScreenSizes;
 use App\Services\Support\Path;
+use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManager;
 use LaravelZero\Framework\Commands\Command;
@@ -10,11 +17,13 @@ use function Termwind\{render, terminal};
 
 class IconMaker
 {
-    protected string $sourceDir = 'art/images/icon-maker';
+    public array $config = [];
 
-    protected string $destinationDir = 'public/assets/icons';
+    public string $sourceDir = 'art/images/icon-maker';
 
-    protected array $regularFiles = [
+    public string $destinationDir;
+
+    public array $regularFiles = [
         'favicon'        => 'favicon.png|required size 1024x1024',
         'icon'           => 'icon.png|required size 1024x1024', // 1024
         'icon-maskable'  => 'icon-maskable.png|required size 1024x1024', // 1024
@@ -29,21 +38,23 @@ class IconMaker
         'splash' => 'splash.png|required size 8064 x 8064. We will resize it for all splash screens',
     ];
 
-    protected Command $command;
+    public Command $command;
 
-    protected string $hash;
+    public string $hash;
 
-    protected array $html = [];
+    public array $html = [];
 
-    protected array $iconsConfig = [];
+    public array $iconsConfig = [];
 
-    protected array $manifestConfig = [
+    public array $laravelConfig = [];
+
+    public array $manifestConfig = [
         'theme_color' => '#ffffff',
     ];
 
-    protected array $iconPaths = [];
+    public array $iconPaths = [];
 
-    protected array $msapplication = [];
+    public array $msapplication = [];
 
     public function setCommand(Command $command): IconMaker
     {
@@ -56,9 +67,11 @@ class IconMaker
         return (new self())->setCommand($command);
     }
 
-    public function makeIcons()
+    public function makeIcons(): void
     {
         $this->setHash();
+
+        $this->readConfig();
 
         $this->ensureRequiredSourceFilesExist();
 
@@ -66,13 +79,25 @@ class IconMaker
 
         Path::ensureDirExist($this->destinationDir);
 
-        $this->processFavicons();
+        $this->laravelConfig['theme-color'] = $this->manifestConfig['theme_color'] = $this->command->ask('Theme color?', '#ffffff');
 
-        $this->processIcons();
+        /** @var Pipeline $pipeline */
+        $pipeline = app(Pipeline::class);
 
-        $this->processMaskableIcons();
+        $pipes = [
+            Favicon::class,
+            Icon::class,
+            Splash::class,
+            ExportArtifacts::class,
+        ];
 
-        $this->processManifest();
+        $pipeline
+            ->via('handle')
+            ->send($this)
+            ->through($pipes)
+            ->then(function (IconMaker $maker) {
+                echo 'done';
+            });
     }
 
     protected function setHash(): void
@@ -82,6 +107,10 @@ class IconMaker
 
     protected function ensureRequiredSourceFilesExist(): void
     {
+        if (Splash::enabled($this->command)) {
+            $this->regularFiles = array_merge($this->regularFiles, $this->splashFiles);
+        }
+
         $files = collect($this->regularFiles)
             ->map(function ($name) {
                 [$fileName, $fileDescription] = explode('|', $name);
@@ -107,170 +136,14 @@ class IconMaker
         );
     }
 
-    protected function processFavicons(): void
+    protected function readConfig(): void
     {
-        $this->command->comment('--- Favicons: ico & png images');
-        $image = $this->loadImage(explode('|', $this->regularFiles['favicon'])[0]);
-        $image->backup();
-        $i = $icoName = "favicon-{$this->hash}.ico";
-        $p = $pngName = "favicon-{$this->hash}.png";
-
-        $pngName = "{$this->destinationDir}/{$pngName}";
-        $icoName = "{$this->destinationDir}/{$icoName}";
-
-        $image->fit(32, 32)
-            ->save(Path::currentDirectory($pngName), 100)
-            ->encode('ico')
-            ->save(Path::currentDirectory($icoName), 100);
-
-        $this->command->comment('<comment>' . $p . ' created</comment>');
-        $this->command->comment('<comment>' . $i . ' created</comment>');
-        $this->iconPaths['favicon-png'] = $pngName = str($pngName)->after('public/')->toString();
-        $this->iconPaths['favicon-ico'] = $icoName = str($icoName)->after('public/')->toString();
-
-        $this->html[] = "<link rel=\"shortcut icon\" href=\"{{ asset('{$icoName}') }}\" type=\"image/x-icon\">";
-        $this->html[] = "<link rel=\"icon\" sizes=\"32x32\" href=\"{{ asset('{$pngName}') }}\" type=\"image/png\">";
-        $image->destroy();
-    }
-
-    protected function processIcons(): void
-    {
-        $this->command->comment('--- Icons');
-        $image = $this->loadImage(explode('|', $this->regularFiles['icon'])[0]);
-        $image->backup();
-
-        foreach ([512, 192] as $dim) {
-            $name = "icon-{$dim}-{$this->hash}.png";
-            $image->fit($dim, $dim)->save($path = "{$this->destinationDir}/{$name}", 100);
-            $image->reset();
-            $this->command->comment('<comment>' . $name . ' created</comment>');
-            $this->iconsConfig["icon-{$dim}"] = str($path)->after('public/')->toString();
-            $this->manifestConfig['icons'][] = [
-                "src"   => $src = str("{$this->destinationDir}/{$name}")->after('public/')->toString(),
-                "sizes" => "{$dim}x{$dim}",
-                "type"  => "image/png"
-            ];
-            $this->iconPaths['icon-' . $dim] = $src;
-        }
-        $image->destroy();
-    }
-
-    protected function processMaskableIcons(): void
-    {
-        $this->command->comment('--- Maskable Icons');
-        $image = $this->loadImage(explode('|', $this->regularFiles['icon-maskable'])[0]);
-        $image->backup();
-
-        foreach ([1024, 512, 310, 270, 192, 144, 150, 70] as $dim) {
-            //$name = $this->randomName('png');
-            $name = "maskable-icon-{$dim}-{$this->hash}.png";
-            $image->fit($dim, $dim)->save($path = "{$this->destinationDir}/{$name}", 100);
-            $image->reset();
-            $this->command->comment('<comment>' . $name . ' created</comment>');
-            $path = str($path)->after('public/')->toString();
-
-            $this->iconPaths['icon-' . $dim] = $path;
-
-            if (in_array($dim, [512, 192])) {
-                $this->iconsConfig["icon-maskable-{$dim}"] = $path;
-            }
-
-            $this->msapplication[] = "<meta name=\"msapplication-square{$dim}x{$dim}logo\" content=\"{{ asset('{$path}') }}\" />";
-
-            if ($dim == 144) {
-                $this->msapplication[] = "<meta name=\"msapplication-TileImage\" content=\"{{ asset('{$path}') }}\" />";
-            }
-
-            if ($dim == 1024) {
-                $this->html[] = "<link rel=\"apple-touch-icon\" sizes=\"192x192\" href=\"{{ asset('{$path}') }}\" />";
-            }
-
-            if (in_array($dim, [192, 512])) {
-                $this->manifestConfig['icons'][] = [
-                    "src"     => str("{$this->destinationDir}/{$name}")->after('public/')->toString(),
-                    "sizes"   => "{$dim}x{$dim}",
-                    "type"    => "image/png",
-                    "purpose" => "maskable",
-                ];
-            }
-        }
-    }
-
-    protected function processManifest(): void
-    {
-        $this->command->comment('--- Creating Manifest');
-        $manifestIcons = "<?php \n\nreturn [\n";
-        $manifestIcons .= "'theme-color' => '{$this->manifestConfig['theme_color']}',\n";
-
-        $allFiles = [
-            'svg' => ['logo-vector', 'logo-sm-vector', 'apple-tab-icon'],
-            'png' => ['logo', 'logo-sm'],
-        ];
-
-        foreach ($allFiles as $type => $files) {
-            foreach ($files as $name) {
-                $logoName = "{$name}-{$this->hash}.{$type}";
-
-                copy(
-                    Path::currentDirectory($this->sourceDir . '/' . explode('|', $this->regularFiles[$name])[0]),
-                    $path = $this->destinationDir . '/' . $logoName
-                );
-                $this->iconPaths[$name] = $this->removePublicPath($path);
-                $manifestIcons .= "'{$name}' => '{$this->iconPaths[$name]}',\n";
-            }
+        if (File::isFile(Path::currentDirectory('icon-maker.json'))) {
+            $this->config = json_decode(File::get(Path::currentDirectory('icon-maker.json')), true);
         }
 
-        $this->html[] = "<link rel=\"mask-icon\" sizes=\"any\" href=\"{{ asset('{$this->iconPaths['apple-tab-icon']}') }}\" color=\"{{ config('app.theme.theme-color') }}\">";
-        $this->html[] = "<meta name=\"mobile-web-app-capable\" content=\"yes\" />";
-        $this->html[] = "<meta name=\"apple-mobile-web-app-title\" content=\"{{ config('app.name') }}\" />";
-        $this->html[] = "<meta name=\"apple-mobile-web-app-status-bar-style\" content=\"white\" />";
-        $this->html[] = "<meta name=\"theme-color\" content=\"{{ config('app.theme.theme-color') }}\" />";
-        $this->html[] = "<link rel=\"manifest\" href=\"/manifest.json\" crossOrigin=\"use-credentials\" />";
-        $this->msapplication[] = "<meta name=\"msapplication-TileColor\" content=\"white\">";
-
-        foreach ($this->iconsConfig as $k => $v) {
-            $manifestIcons .= "'{$k}' => '{$v}',\n";
-        }
-        $manifestIcons .= "];\n";
-
-        File::put(
-            Path::currentDirectory($this->destinationDir . "/head.html"),
-            implode("\n", array_merge($this->html, $this->msapplication))
-        );
-
-        File::put(
-            Path::currentDirectory('resources/views/head-icons.blade.php'),
-            implode("\n", array_merge($this->html, $this->msapplication))
-        );
-
-        File::put(
-            Path::currentDirectory('config/theme.php'),
-            $manifestIcons
-        );
-
-        $this->generateManifest();
-    }
-
-    protected function generateManifest(): void
-    {
-        File::put($this->manifestLocation(), json_encode($this->manifestConfig, JSON_UNESCAPED_SLASHES));
-        File::put($this->manifestLocation(true), json_encode($this->manifestConfig, JSON_UNESCAPED_SLASHES));
-    }
-
-    protected function manifestLocation($webmanifest = false): string
-    {
-        return $webmanifest ?
-            Path::currentDirectory("public/manifest.webmanifest") :
-            Path::currentDirectory("public/manifest.json");
-    }
-
-    protected function loadImage($src): \Intervention\Image\Image
-    {
-        return (new ImageManager(['driver' => 'imagick']))->make("{$this->sourceDir}/{$src}");
-    }
-
-    protected function removePublicPath(string $iconPaths): string
-    {
-        return str($iconPaths)->after('public/')->prepend('/')->toString();
+        $this->destinationDir = Arr::has($this->config ?? [], 'destinationDirectory')
+            ? Arr::get($this->config, 'destinationDirectory', 'public/assets/icons') . '/' . $this->hash
+            : 'public/assets/icons/' . $this->hash;
     }
 }

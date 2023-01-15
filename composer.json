@@ -23,9 +23,11 @@
     ],
     "require": {
         "php": "^8.1",
+        "fabpot/goutte": "^4.0",
         "intervention/image": "^2.7",
         "laravel-zero/framework": "^9.2",
-        "nunomaduro/termwind": "^1.15"
+        "nunomaduro/termwind": "^1.15",
+        "symfony/dom-crawler": "^6.2"
     },
     "require-dev": {
         "laravel/pint": "^1.2",
