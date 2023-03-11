@@ -16,7 +16,7 @@ Add the following icons in your `projectRoot/art/images/icon-maker`
 ```
 
 ## Run command to create icons
-In project root run following commands to create icons
+In project root rOun following commands to create icons
 ```shell
 icon-maker make:icon # to create icons
 icon-maker make:icon --splash # to create icons with splash
