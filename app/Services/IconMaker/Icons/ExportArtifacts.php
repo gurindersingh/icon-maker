@@ -82,12 +82,11 @@ class ExportArtifacts extends BaseIconMaker implements IconMakerContract
                 Path::currentDirectory($headHtmlLocationPath),
                 implode("\n", array_merge($this->maker->html, $this->maker->msapplication))
             );
-
         }
 
         if (Arr::get($this->maker->config, 'headHtmlBladeLocation') !== false) {
 
-            $headHtmlBladeLocationPath = Arr::get($this->maker->config, 'headHtmlBladeLocation', 'resources/views/head-icons.blade.php');
+            $headHtmlBladeLocationPath = Arr::get($this->maker->config, 'headHtmlBladeLocation', 'resources/views/components/head-icons.blade.php');
 
             File::ensureDirectoryExists(pathinfo($headHtmlBladeLocationPath)['dirname']);
 
@@ -95,7 +94,6 @@ class ExportArtifacts extends BaseIconMaker implements IconMakerContract
                 Path::currentDirectory($headHtmlBladeLocationPath),
                 implode("\n", array_merge($this->maker->html, $this->maker->msapplication))
             );
-
         }
 
         if (Arr::get($this->maker->config, 'configThemeLocation') !== false) {
@@ -108,7 +106,6 @@ class ExportArtifacts extends BaseIconMaker implements IconMakerContract
                 Path::currentDirectory($configThemeLocationPath),
                 $this->manifestIcons
             );
-
         }
 
         if (Arr::get($this->maker->config, 'webManifestLocation') !== false) {

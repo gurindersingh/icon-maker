@@ -107,6 +107,7 @@ class IconMaker
     protected function setHash(): void
     {
         $this->hash = hash('crc32', now()->getTimestamp(), FALSE);
+        $this->iconsConfig['hash'] = $this->hash;
     }
 
     protected function ensureRequiredSourceFilesExist(): void
@@ -128,7 +129,7 @@ class IconMaker
 
         if ($files->isNotEmpty()) {
             render('<p class="bg-red-500 p-1 text-white">Missing following files</p>');
-            $this->command->table(['Filename', 'Status', 'Description'], $files->map(fn($arr) => [$arr['filename'], $arr['status'], $arr['description']]));
+            $this->command->table(['Filename', 'Status', 'Description'], $files->map(fn ($arr) => [$arr['filename'], $arr['status'], $arr['description']]));
             exit(0);
         }
     }

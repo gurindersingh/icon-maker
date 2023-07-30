@@ -21,7 +21,6 @@ class Favicon extends BaseIconMaker implements IconMakerContract
             $this->saveIco();
 
             $this->image->destroy();
-
         }, 'Processing...');
     }
 
@@ -35,6 +34,8 @@ class Favicon extends BaseIconMaker implements IconMakerContract
 
         $this->maker->laravelConfig['favicon-png'] = $this->maker->iconPaths['favicon-png'] = $pngName = str($pngName)->after('public/')->toString();
 
+        $this->maker->iconsConfig['favicon-png'] = '/' . $pngName;
+
         $this->maker->html[] = "<link rel=\"icon\" sizes=\"32x32\" href=\"{{ asset('{$pngName}') }}\" type=\"image/png\">";
     }
 
@@ -47,6 +48,8 @@ class Favicon extends BaseIconMaker implements IconMakerContract
         $this->image->fit(32, 32)->encode('ico')->save(Path::currentDirectory($icoName), 100);
 
         $this->maker->laravelConfig['favicon-ico'] = $this->maker->iconPaths['favicon-ico'] = $icoName = str($icoName)->after('public/')->toString();
+
+        $this->maker->iconsConfig['favicon-ico'] = '/' . $icoName;
 
         $this->maker->html[] = "<link rel=\"shortcut icon\" href=\"{{ asset('{$icoName}') }}\" type=\"image/x-icon\">";
     }
