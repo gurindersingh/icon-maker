@@ -2,17 +2,17 @@
 
 namespace App\Services\IconMaker;
 
-use App\Services\IconMaker\Icons\ExportArtifacts;
-use App\Services\IconMaker\Icons\Favicon;
-use App\Services\IconMaker\Icons\Icon;
-use App\Services\IconMaker\Icons\OptimizeIcons;
-use App\Services\IconMaker\Icons\Splash;
+use Illuminate\Support\Arr;
 use App\Services\Support\Path;
 use Illuminate\Pipeline\Pipeline;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
-use LaravelZero\Framework\Commands\Command;
+use App\Services\IconMaker\Icons\Icon;
+use App\Services\IconMaker\Icons\Splash;
+use App\Services\IconMaker\Icons\Favicon;
 use function Termwind\{render, terminal};
+use LaravelZero\Framework\Commands\Command;
+use App\Services\IconMaker\Icons\OptimizeIcons;
+use App\Services\IconMaker\Icons\ExportArtifacts;
 
 class IconMaker
 {
@@ -74,7 +74,7 @@ class IconMaker
 
         $this->ensureRequiredSourceFilesExist();
 
-        $this->cleanDestinationDir();
+        $this->cleanDestinationDir('public/assets/icons');
 
         Path::ensureDirExist($this->destinationDir);
 
@@ -134,10 +134,10 @@ class IconMaker
         }
     }
 
-    protected function cleanDestinationDir(): void
+    protected function cleanDestinationDir($path): void
     {
         Path::cleanDir(
-            Path::currentDirectory($this->destinationDir)
+            Path::currentDirectory($path)
         );
     }
 

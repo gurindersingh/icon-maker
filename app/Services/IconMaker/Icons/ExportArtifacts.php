@@ -113,7 +113,7 @@ class ExportArtifacts extends BaseIconMaker implements IconMakerContract
         }
 
         if (Arr::get($this->maker->config, 'manifestJsonLocation') !== false) {
-            $this->writeManifest('manifestJsonLocation', 'public/manifest.webmanifest');
+            $this->writeManifest('manifestJsonLocation', 'public/manifest.json');
         }
     }
 
